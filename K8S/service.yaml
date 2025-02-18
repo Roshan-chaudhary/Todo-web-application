@@ -1,0 +1,28 @@
+
+# 1. Exposes the application inside or outside the cluster.
+
+# type :- ClusterIP : Used for internal communication between services inSide of  Cluster . 
+# type :- NodePort  :  Used for External Communication outSide of Cluster .
+# type : LoadBalancer : Used for production deployments.
+
+apiVersion: v1  # API version  
+kind: Service  # Service resource  
+metadata:
+  name: web-app-service  # Service name  
+  namespace: my-namespace  # Specifies the namespace where this service belongs  
+
+spec:
+  selector:
+    app: web-app  # Match Deployment labels  
+
+  ports:
+    - protocol: TCP  # Protocol type  
+      port: 80  # Service port  
+      targetPort: 3000  # Container port  
+
+  type: NodePort  # Exposes service externally  
+
+
+
+
+   

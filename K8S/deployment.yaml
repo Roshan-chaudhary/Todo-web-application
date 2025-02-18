@@ -1,0 +1,31 @@
+apiVersion: apps/v1  # API version  
+kind: Deployment     # Resource type  
+metadata:
+  name: web-app      # Deployment name  
+  namespace: my-namespace  # Defines the namespace where this deployment will be created  
+  labels:
+    app: web-app     # Labels for selection  
+
+spec:
+  replicas: 2        # Number of Pods  
+  selector:
+    matchLabels:
+      app: web-app   # Match Pods with this label  
+
+  template:          # Pod template  
+    metadata:
+      labels:
+        app: web-app # Labels for Pods  
+
+    spec:
+      containers:    
+        - name: web-app  # Container name  
+          image: docker.io/roshan602/blue-fox:03  # Docker image  
+          imagePullPolicy: IfNotPresent  # Use local image if available  
+
+          ports:
+            - containerPort: 3000  # Exposed port  
+
+          env:  
+            - name: ENVIRONMENT  
+              value: "production"  # Environment mode  

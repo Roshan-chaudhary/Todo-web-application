@@ -1,0 +1,87 @@
+
+// Warning Note :-
+
+- Kubernative Only Run in Ec2 Need : 2 GB CPU and 20 GB Storage 
+
+
+// Name Space Create First :-
+  
+- kubectl create namespace my-namespace
+
+
+
+// Install Kubernatives 
+
+- sudo apt update && sudo apt upgrade -y
+- sudo apt install -y apt-transport-https ca-certificates curl
+
+// 
+
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+
+// 
+
+sudo apt install -y docker.io
+sudo systemctl enable docker
+sudo systemctl start docker
+
+
+//
+
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl
+
+// 
+
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+
+// 
+
+sudo snap install kubelet --classic
+sudo snap install kubeadm --classic
+sudo snap install kubectl --classic
+
+
+// 
+
+kubeadm version
+kubectl version --client
+kubelet --version
+
+// 
+
+
+
+
+
+
+minikube start
+
+// Deploy Yaml 
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl apply -f ingress.yaml
+
+
+// Check the Deployment Status
+
+kubectl get pods
+kubectl get deployments
+kubectl get services
+
+//
+
+
+// To Delete 
+kubectl delete -f deployment.yaml
+kubectl delete -f service.yaml
+
+
+// Access URL
+
+minikube service <service-name>

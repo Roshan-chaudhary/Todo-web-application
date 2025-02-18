@@ -1,0 +1,24 @@
+
+ # 1. Routes traffic based on domain names and paths.
+ # 2. routes Traffic from myapp.example.com to web-app-service.
+
+apiVersion: networking.k8s.io/v1  # API version  
+kind: Ingress  # Ingress resource  
+metadata:
+  name: web-app-ingress  # Ingress name  
+  namespace: my-namespace  # Defines the namespace where this Ingress will be created  
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Rewrite URL to `/`  
+
+spec:
+  rules:
+    - host: web-app.example.com  # Domain name  
+      http:
+        paths:
+          - path: /  # Request path in browser  
+            pathType: Prefix  # Match prefix  
+            backend:
+              service:
+                name: web-app-service  # Target service  
+                port:
+                  number: 80  # Service port  
